@@ -16,5 +16,10 @@ console.log(myBook)
 const color = chalk.blue.bold.inverse('This is my excercise')
 
 console.log((color))
-
-console.log(process.argv[2])
+console.log (process.argv)
+const command = process.argv[2]
+if (command === 'add'){
+    console.log('adding note')
+} else if (command === 'remove'){
+    console.log('remove note')
+}
