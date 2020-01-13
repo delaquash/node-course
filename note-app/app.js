@@ -7,7 +7,7 @@
 // const validator = require('validator')
 const chalk = require ('chalk');
 const yargs = require('yargs');
-const getNotes = require('./notes.js');
+const note = require('./notes.js');
 
 // console.log(process.argv)
 yargs.version('1.1.0');
@@ -20,12 +20,17 @@ yargs.command({
     builder: {
         title: {
             describe: 'Note title',
-            demandOption:!false,
+            demandOption:true,
+            type:'string'
+        },
+        body: {
+            describe: 'Body title',
+            demandOption: true,
             type:'string'
         }
     },
-    handler:function(argv){
-        console.log('Title: ' + argv.title);
+    handler(argv){
+        note.addNote(argv.title, argv.body)
     }
 });
 
@@ -33,20 +38,38 @@ yargs.command({
 yargs.command({
     command: 'remove',
     describe: 'Remove a note',
-    handler: function(){
+    handler(){
         console.log('Removing a note');
     }
 });
+
+// Listing note command
+
+yargs.command({
+    command: 'list',
+    describe: 'Listing a note',
+    handler(){
+        note.listNote( )
+    }
+})
+
+
 
 // Create read
 yargs.command({
     command: 'read',
     describe:'I am currently reading on ALibaba Journey',
-    handler: function(){
-        console.log('Latest book i read');
-    }
-})
+    builder:{
+        title: {
+           describe: 'Note Title',
+           demandOption: "true",
+           type: "string"
+        }
 
+    },
+    handler(argv){
+         notes.removeNote(title)
+    }
 // const myBook = getNotes()
 // console.log(myBook)
 
@@ -62,3 +85,4 @@ yargs.command({
 // } else if (command === 'remove'){
 //     console.log('remove note')
 // }
+})
