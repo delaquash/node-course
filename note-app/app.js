@@ -68,7 +68,7 @@ yargs.command({
 
     },
     handler(argv){
-         notes.removeNote(title)
+         notes.readNote(argv.title);
     }
 // const myBook = getNotes()
 // console.log(myBook)
@@ -86,3 +86,4 @@ yargs.command({
 //     console.log('remove note')
 // }
 })
+yargs.parse()
