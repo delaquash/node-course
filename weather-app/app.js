@@ -1,4 +1,6 @@
-const request = require("request");
+// const request = require("request");
+const geocode = require("./utils/geocode");
+const forecast = require("./utils/forecast");
 
 
 // DarkskyAPI Code
@@ -19,18 +21,105 @@ const request = require("request");
 
 // Mapbox Code
 
-const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/lagos.json?access_token=pk.eyJ1IjoiZGVsYXF1YXNoIiwiYSI6ImNrMzc3YjUyejA4bWUzaWxpdGp1dHdkcWgifQ.A7H97D5M9-CH0CJdsqNO8w';
+// const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/lagos.json?access_token=pk.eyJ1IjoiZGVsYXF1YXNoIiwiYSI6ImNrMzc3YjUyejA4bWUzaWxpdGp1dHdkcWgifQ.A7H97D5M9-CH0CJdsqNO8w';
 
-request({ url:geocodeURL, json: true}, (err, res) => {
-    // const data = JSON.parse(res);
-    const latitude=res.body.features[0].center[0];
-    const longitude = res.body.features[0].center[1];
+// request({ url:geocodeURL, json: true}, (err, res) => {
+//     // const data = JSON.parse(res);
+//     const latitude=res.body.features[0].center[0];
+//     const longitude = res.body.features[0].center[1];
 
-if(err) {
-    console.log('Unable to connecct to network');
-} else if (Response.body.features.length === 0){
-    console.log("Unable to find location");
-} else {
-     console.log(latitude, longitude);
+// if(err) {
+//     console.log('Unable to connecct to network');
+// } else if (Response.body.features.length === 0){
+//     console.log("Unable to find location");
+// } else {
+//      console.log(latitude, longitude);
+// }
+// });
+
+
+// geocode('Ogun', (err, data) => {
+//     console.log('Error', err);
+//     console.log('Data', data)
+// });
+const address = process.argv
+    if(!address) {
+        console.log("please provide an address")
+        } else {
+               geocode(address, (err, data)=> {
+                if (err) {
+                    return console.log (err);
+                }
+
+                forecast(data.latitude, data.longitude, (err, forecastData) => {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log(data.location);
+                console.log(forecastData);
+                });
+            });
 }
-})
+
+
+// forecast(-75.7088, 44.1545, (err, data) => {
+//   console.log('Error', err);
+//   console.log('Data', data);
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
