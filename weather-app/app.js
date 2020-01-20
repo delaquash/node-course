@@ -38,24 +38,24 @@ const forecast = require("./utils/forecast");
 // });
 
 
-// geocode('Ogun', (err, data) => {
-//     console.log('Error', err);
-//     console.log('Data', data)
-// });
-const address = process.argv
+geocode('Ogun', (err, data) => {
+    console.log('Error', err);
+    console.log('Data', data)
+});
+const address = process.argv;
     if(!address) {
-        console.log("please provide an address")
+        console.log("please provide an address");
         } else {
-               geocode(address, (err, data)=> {
+               geocode(address, (err, { latitude, longitude, location })=> {
                 if (err) {
                     return console.log (err);
                 }
 
-                forecast(data.latitude, data.longitude, (err, forecastData) => {
+                forecast(latitude, longitude, (err, forecastData) => {
                 if (err) {
                     return console.log(err);
                 }
-                console.log(data.location);
+                console.log(location);
                 console.log(forecastData);
                 });
             });
@@ -66,60 +66,3 @@ const address = process.argv
 //   console.log('Error', err);
 //   console.log('Data', data);
 // })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
