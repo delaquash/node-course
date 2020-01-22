@@ -5,8 +5,23 @@ const publicDirectoryPath = (path.join(__dirname, '../public'));
 
 const app = express();
 
+
+app.set('view engine', 'hbs');
 app.use(express.static(publicDirectoryPath));
 
+app.get('', (req, res) => {
+    res.render('index', {
+        stack: 'React, Vue, NodeJS, Python, Golang, C##',
+        profession: 'Software Developer',
+        futureAspiration: 'IoT, ML'
+    });
+});
+
+app.get('/about', (req, res)=> {
+    res.render('about',{
+        
+    });
+})
 // app.com
 // app.com/help
 // app.com/about
