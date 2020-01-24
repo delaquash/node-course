@@ -42,13 +42,25 @@ app.get('', (req, res) => {
     res.send('<h1>Title</h1>');
 })
 
+app.get('/products', (req, res) => {
+    // console.log(req.query.search);
+    if (req.query.search) {
+        res.send({
+            Error: 'You must provide a product term'
+        })
+    }
+    console.log(req.query.search)
+    res.send({
+        products: []
+    })
+})
 
 app.get('/help', (req, res) => {
     res.render('help', {
         stack: 'React and NodeJS',
         message: "God help me",
         new: ' Help',
-           name: 'Olaide Emmanuel'
+        name: 'Olaide Emmanuel'
     });
 });
 
@@ -63,11 +75,11 @@ app.get('/help/*', (req, res) => {
     res.send('Help articles not found');
 })
 
-app.get ("*", (req, res) => {
-      res.render('404', {
+app.get("*", (req, res) => {
+    res.render('404', {
         name: 'Olaide Emmanuel',
         title: '404',
-        errorMessage:'Page not found',
+        errorMessage: 'Page not found',
     });
 });
 
@@ -75,4 +87,3 @@ app.get ("*", (req, res) => {
 app.listen(3000, () => {
     console.log('Server is up on port 3000.');
 });
-
