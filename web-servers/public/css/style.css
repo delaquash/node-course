@@ -9,6 +9,7 @@ body {
     flex-direction: column;
     min-width: 100vh;
 }
+
 .main-content {
     flex-grow: 1;
 }
@@ -39,4 +40,17 @@ header a {
 
 .potrait {
     width: 250px;
+}
+
+input {
+    border: 1px solid #333333;
+    padding: 8px;
+}
+
+button {
+    cursor: pointer;
+    border: 1px solid #cccccc;
+    color: white;
+    background: blue;
+    padding: 8px;
 }
