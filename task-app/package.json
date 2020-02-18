@@ -9,7 +9,12 @@
   "author": "Olaide Emmanuel",
   "license": "MIT",
   "dependencies": {
-    "mongodb": "^3.1.10",
-    "mongoose": "^5.3.16"
+    "express": "^4.17.1",
+    "mongodb": "^3.5.3",
+    "mongoose": "^5.9.1",
+    "validator": "^12.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
