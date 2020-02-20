@@ -8,14 +8,14 @@ const User = mongoose.model('User', {
         type: String,
         required: true,
     },
-    password: {
+    password: { 
         type: String,
         required: true,
         trim: true,
         length: 6,
         validate(value) {
             if(value.toLowercase().includes("password")) {
-                throw new Error("Password must not be more six characters")
+                throw new Error("Password must not be more than six characters")
             }
         }
     },
