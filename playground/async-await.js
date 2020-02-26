@@ -23,3 +23,4 @@ doWork().then((result) => {
 }).catch((e) => {
     console.log('e', e);
 });
+
