@@ -46,6 +46,18 @@ const user = new User(req.body)
 
 })
 
+// How to successfully log in users using an endpoint which users can use by creating a reusable function
+router.post('/users/login', async(req, res) => {
+    try () {
+        const user = await User.findByCredentials(req.body.email, req.body.password);
+        const tken = await user.generateAuthToken()
+        res.send(e)
+    } catch(e) {
+        res.status(400).user()
+    }
+})
+
+
 
 router.get('/users', async (req, res, next) => {
 //     How to find user using the get method
@@ -77,7 +89,13 @@ router.patch("/users/:id" , async (req, res, next) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body ({ new:true, runValidators: true }))
+        // const user = await User.findByIdAndUpdate(req.params.id, req.body ({ new:true, runValidators: true }))
+
+        const user = await User.findById(req.params.id)
+        updates.forEach((update) => user[update] = req.body[update]);
+
+        await user.save();
+
         if (!user) {
             return res.status(404).send()
         }
@@ -93,7 +111,7 @@ router.patch("/users/:id" , async (req, res, next) => {
 // Deleting a particular user the patch and \async await method
 router.delete("/users/:id", async (req, res, next) => {
     try {
-        const user = await User.findByIdAndDelete(req.params.id)
+        const user = await User.findByIdAndDelete(req.params.id);
         if(!user) {
             return res.status(404).send()
         }
@@ -107,7 +125,12 @@ router.delete("/users/:id", async (req, res, next) => {
 // Deleting a particular task using the patch and async await method
 router.delete("/task/:id", async (req, res, next) => {
     try {
-        const task = await Task.findByIdAndDelete(req.params.id)
+        // const task = await Task.findByIdAndDelete(req.params.id)
+        const task = await Task.findById(req.params.id)
+        updates.forEach((update) => task[update] = req.body[update]);
+        await task.save();
+
+
         if(!task) {
             return res.status(400).send()
         }
