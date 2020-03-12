@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
 const router = new express.Router();
+const multer = require('multer');
 
 
 router.get('/test', (req, res) => {
@@ -179,6 +180,27 @@ router.delete("/task/:id", async (req, res, next) => {
     next()
 })
 
+
+
+// How to create a route when one wants to upload images
+const upload = multer ({
+    dest: 'avatars',
+    limits: {
+        // Setting a limit for the size of picture to be uploaded
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb){
+        
+
+        // How to use a callback to display error message if a wrong file format was uploaded
+        // cb(new Error ('File must be a pdf'))
+        // cb(undefined, true)
+    }
+})
+
+router.post('/users/me/avatar',upload.single('avatar'),(req,res) => {
+    res.send()
+})
 // router.listen(port, () => {
 //     console.log("Server is up on " + port);
 // })

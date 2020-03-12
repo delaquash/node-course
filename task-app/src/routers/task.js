@@ -65,9 +65,28 @@ router.patch("/task/:id", auth , async (req, res, next) => {
 });
 
 router.get('/task',auth,  async (req, res) => {
+    const match = {}
+    const sort = {}
+
+    if(req.query.completed) {
+        match.completed = req.query.completed === 'true'
+    }
+
+    if(req.query.sortBy) {
+        const parts = req.query.sortBy.split(':')
+        sort[part[0]] = parts[1] === 'desc' ? -1 : 1 
+    }
     try {
         // const tasks = await Task.find({ owner: req.user._id})
-        await req.user.populate('tasks').execPopulate()
+        await req.user.populate({
+            path: 'tasks',
+            match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip),
+                sort
+            }
+        }).execPopulate()
         res.send(req.user.tasks)
 
     } catch (e) {

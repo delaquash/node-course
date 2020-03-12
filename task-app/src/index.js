@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 require('./db/mongoose');
 //
 
@@ -10,8 +11,21 @@ require('./db/mongoose');
 const userRouter = require('./routers/user');
 const userTask = require('./routers/task');
 
+const multer = require('multer');
+const upload = multer({
+    dest: 'images',
+     limits: {
+        // Setting a limit for the size of picture to be uploaded
+        fileSize: 1000000
+    }
+})
 
-const app = express();
+
+app.post('/upload', upload.single("upload"), (req, res) => {
+    res.send()
+})
+
+
 const port = process.env.PORT || 3000;
 
 // How to create middleware in node application
@@ -44,15 +58,15 @@ app.listen(port, () => {
 const Task = require('./models/task');
 const User = require('./models/user');
 
-const main = async () => {
-    // const task = await Task.findById('5c2e505a3253e18a43e612e6')
-    // await task.populate('owner').execPopulate()
-    // console.log(task.owner)
-    const user = await User.findById()
-    await user.populate('task').execPopulate()
-    console.log(user.tasks)
-}
-main()
+// const main = async () => {
+//     // const task = await Task.findById('5c2e505a3253e18a43e612e6')
+//     // await task.populate('owner').execPopulate()
+//     // console.log(task.owner)
+//     const user = await User.findById()
+//     await user.populate('task').execPopulate()
+//     console.log(user.tasks)
+// }
+// main()
 
 
 
