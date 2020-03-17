@@ -14,20 +14,23 @@ const userTask = require('./routers/task');
 const multer = require('multer');
 const upload = multer({
     dest: 'images',
-     limits: {
+    limits: {
         // Setting a limit for the size of picture to be uploaded
         fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(doc|docx)$/)) {
+            return cb(new Error("Please upload a pdf file"));
+        }
+        cb(undefined, true)
     }
-})
-
-const errorMiddleware = (req, res, next) => {
-    throw new Error('From my middleware')
-}
-
-app.post('/upload', errorMiddleware, (req, res) => {
+});
+app.post('/upload', upload.single('upload'), (req, res) => {
     res.send()
 }, (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
+    res.status(400).send({
+        error: error.message
+    })
 })
 
 
